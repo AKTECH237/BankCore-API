@@ -1,0 +1,93 @@
+package AKTtech.sprint_backend.service;
+
+import AKTtech.sprint_backend.model.Compte;
+import AKTtech.sprint_backend.model.Transaction;
+import AKTtech.sprint_backend.repository.CompteRepository;
+import AKTtech.sprint_backend.repository.TransactionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Service
+public class TransactionService {
+
+    @Autowired
+    private TransactionRepository transactionRepository;
+
+    @Autowired
+    private CompteRepository compteRepository;
+
+    // Dépôt
+    public Transaction depot(Long compteId, Double montant, String description) {
+        Compte compte = compteRepository.findById(compteId)
+                .orElseThrow(() -> new RuntimeException("Compte non trouvé"));
+
+        compte.setSolde(compte.getSolde() + montant);
+        compteRepository.save(compte);
+
+        Transaction transaction = new Transaction();
+        transaction.setType("DEPOT");
+        transaction.setMontant(montant);
+        transaction.setDateTransaction(LocalDateTime.now());
+        transaction.setDescription(description);
+        transaction.setCompteSource(compte);
+
+        return transactionRepository.save(transaction);
+    }
+
+    // Retrait
+    public Transaction retrait(Long compteId, Double montant, String description) {
+        Compte compte = compteRepository.findById(compteId)
+                .orElseThrow(() -> new RuntimeException("Compte non trouvé"));
+
+        if (compte.getSolde() < montant) {
+            throw new RuntimeException("Solde insuffisant");
+        }
+
+        compte.setSolde(compte.getSolde() - montant);
+        compteRepository.save(compte);
+
+        Transaction transaction = new Transaction();
+        transaction.setType("RETRAIT");
+        transaction.setMontant(montant);
+        transaction.setDateTransaction(LocalDateTime.now());
+        transaction.setDescription(description);
+        transaction.setCompteSource(compte);
+
+        return transactionRepository.save(transaction);
+    }
+
+    // Virement
+    public Transaction virement(Long compteSourceId, Long compteDestinationId, Double montant, String description) {
+        Compte source = compteRepository.findById(compteSourceId)
+                .orElseThrow(() -> new RuntimeException("Compte source non trouvé"));
+        Compte destination = compteRepository.findById(compteDestinationId)
+                .orElseThrow(() -> new RuntimeException("Compte destination non trouvé"));
+
+        if (source.getSolde() < montant) {
+            throw new RuntimeException("Solde insuffisant");
+        }
+
+        source.setSolde(source.getSolde() - montant);
+        destination.setSolde(destination.getSolde() + montant);
+        compteRepository.save(source);
+        compteRepository.save(destination);
+
+        Transaction transaction = new Transaction();
+        transaction.setType("VIREMENT");
+        transaction.setMontant(montant);
+        transaction.setDateTransaction(LocalDateTime.now());
+        transaction.setDescription(description);
+        transaction.setCompteSource(source);
+        transaction.setCompteDestination(destination);
+
+        return transactionRepository.save(transaction);
+    }
+
+    // Historique
+    public List<Transaction> getAllTransactions() {
+        return transactionRepository.findAll();
+    }
+}
