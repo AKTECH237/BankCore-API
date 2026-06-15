@@ -1,12 +1,14 @@
 package AKTtech.sprint_backend.service;
 
 import AKTtech.sprint_backend.model.Compte;
+import AKTtech.sprint_backend.model.StatutOperation;
 import AKTtech.sprint_backend.model.Transaction;
 import AKTtech.sprint_backend.repository.CompteRepository;
 import AKTtech.sprint_backend.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,15 +26,17 @@ public class TransactionService {
         Compte compte = compteRepository.findById(compteId)
                 .orElseThrow(() -> new RuntimeException("Compte non trouvé"));
 
-        compte.setSolde(compte.getSolde() + montant);
+        BigDecimal montantBD = BigDecimal.valueOf(montant);
+        compte.setSolde(compte.getSolde().add(montantBD));
         compteRepository.save(compte);
 
         Transaction transaction = new Transaction();
         transaction.setType("DEPOT");
-        transaction.setMontant(montant);
+        transaction.setMontant(montantBD);
         transaction.setDateTransaction(LocalDateTime.now());
         transaction.setDescription(description);
         transaction.setCompteSource(compte);
+        transaction.setStatutOperation(StatutOperation.VALIDEE);
 
         return transactionRepository.save(transaction);
     }
@@ -42,19 +46,22 @@ public class TransactionService {
         Compte compte = compteRepository.findById(compteId)
                 .orElseThrow(() -> new RuntimeException("Compte non trouvé"));
 
-        if (compte.getSolde() < montant) {
+        BigDecimal montantBD = BigDecimal.valueOf(montant);
+
+        if (compte.getSolde().compareTo(montantBD) < 0) {
             throw new RuntimeException("Solde insuffisant");
         }
 
-        compte.setSolde(compte.getSolde() - montant);
+        compte.setSolde(compte.getSolde().subtract(montantBD));
         compteRepository.save(compte);
 
         Transaction transaction = new Transaction();
         transaction.setType("RETRAIT");
-        transaction.setMontant(montant);
+        transaction.setMontant(montantBD);
         transaction.setDateTransaction(LocalDateTime.now());
         transaction.setDescription(description);
         transaction.setCompteSource(compte);
+        transaction.setStatutOperation(StatutOperation.VALIDEE);
 
         return transactionRepository.save(transaction);
     }
@@ -66,22 +73,25 @@ public class TransactionService {
         Compte destination = compteRepository.findById(compteDestinationId)
                 .orElseThrow(() -> new RuntimeException("Compte destination non trouvé"));
 
-        if (source.getSolde() < montant) {
+        BigDecimal montantBD = BigDecimal.valueOf(montant);
+
+        if (source.getSolde().compareTo(montantBD) < 0) {
             throw new RuntimeException("Solde insuffisant");
         }
 
-        source.setSolde(source.getSolde() - montant);
-        destination.setSolde(destination.getSolde() + montant);
+        source.setSolde(source.getSolde().subtract(montantBD));
+        destination.setSolde(destination.getSolde().add(montantBD));
         compteRepository.save(source);
         compteRepository.save(destination);
 
         Transaction transaction = new Transaction();
         transaction.setType("VIREMENT");
-        transaction.setMontant(montant);
+        transaction.setMontant(montantBD);
         transaction.setDateTransaction(LocalDateTime.now());
         transaction.setDescription(description);
         transaction.setCompteSource(source);
         transaction.setCompteDestination(destination);
+        transaction.setStatutOperation(StatutOperation.VALIDEE);
 
         return transactionRepository.save(transaction);
     }

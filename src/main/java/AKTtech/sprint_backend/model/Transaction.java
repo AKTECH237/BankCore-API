@@ -1,6 +1,7 @@
 package AKTtech.sprint_backend.model;
 
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -11,10 +12,13 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String type; // DEPOT, RETRAIT, VIREMENT
-    private Double montant;
+    private String type;
+    private BigDecimal montant;
     private LocalDateTime dateTransaction;
     private String description;
+
+    @Enumerated(EnumType.STRING)
+    private StatutOperation statutOperation;
 
     @ManyToOne
     @JoinColumn(name = "compte_source_id")
@@ -24,8 +28,10 @@ public class Transaction {
     @JoinColumn(name = "compte_destination_id")
     private Compte compteDestination;
 
-    // Constructeurs
-    public Transaction() {}
+    // Constructeur
+    public Transaction() {
+        this.statutOperation = StatutOperation.EN_ATTENTE;
+    }
 
     // Getters & Setters
     public Long getId() { return id; }
@@ -34,14 +40,17 @@ public class Transaction {
     public String getType() { return type; }
     public void setType(String type) { this.type = type; }
 
-    public Double getMontant() { return montant; }
-    public void setMontant(Double montant) { this.montant = montant; }
+    public BigDecimal getMontant() { return montant; }
+    public void setMontant(BigDecimal montant) { this.montant = montant; }
 
     public LocalDateTime getDateTransaction() { return dateTransaction; }
     public void setDateTransaction(LocalDateTime dateTransaction) { this.dateTransaction = dateTransaction; }
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
+
+    public StatutOperation getStatutOperation() { return statutOperation; }
+    public void setStatutOperation(StatutOperation statutOperation) { this.statutOperation = statutOperation; }
 
     public Compte getCompteSource() { return compteSource; }
     public void setCompteSource(Compte compteSource) { this.compteSource = compteSource; }
