@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(erreur, HttpStatus.BAD_REQUEST);
     }
-    
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleException(Exception ex) {
         Map<String, Object> erreur = new HashMap<>();
@@ -44,5 +44,19 @@ public class GlobalExceptionHandler {
         erreur.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
         erreur.put("message", "Erreur interne du serveur");
         return new ResponseEntity<>(erreur, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(jakarta.validation.ConstraintViolationException.class)
+    public ResponseEntity<Map<String, Object>> handleConstraintViolation(
+            jakarta.validation.ConstraintViolationException ex) {
+        Map<String, Object> erreur = new HashMap<>();
+        erreur.put("timestamp", LocalDateTime.now());
+        erreur.put("status", HttpStatus.BAD_REQUEST.value());
+        Map<String, String> violations = new HashMap<>();
+        ex.getConstraintViolations().forEach(v ->
+                violations.put(v.getPropertyPath().toString(), v.getMessage())
+        );
+        erreur.put("erreurs", violations);
+        return new ResponseEntity<>(erreur, HttpStatus.BAD_REQUEST);
     }
 }

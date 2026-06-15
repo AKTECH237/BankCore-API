@@ -22,7 +22,12 @@ public class CompteService {
         return compteRepository.findById(id);
     }
 
-    public Compte createCompte(Compte compte){
+    public Compte createCompte(Compte compte) {
+        // Algorithme de numérotation automatique
+        String annee = String.valueOf(java.time.LocalDate.now().getYear());
+        long nombreComptes = compteRepository.count();
+        String numero = String.format("CMR-%s-%06d", annee, nombreComptes + 1);
+        compte.setNumeroCompte(numero);
         return compteRepository.save(compte);
     }
 
