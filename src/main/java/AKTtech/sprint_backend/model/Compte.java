@@ -28,6 +28,10 @@ public class Compte {
 
     private LocalDateTime dateOuverture;
 
+    private LocalDateTime dateFermeture;
+    private String motifFermeture;
+    private String motifBlocage;
+
     @NotNull(message = "Le client est obligatoire")
     @ManyToOne
     @JoinColumn(name = "client_id")
@@ -64,4 +68,13 @@ public class Compte {
 
     public Client getClient() { return client; }
     public void setClient(Client client) { this.client = client; }
+
+    public LocalDateTime getDateFermeture() { return dateFermeture; }
+    public void setDateFermeture(LocalDateTime dateFermeture) { this.dateFermeture = dateFermeture; }
+
+    public String getMotifFermeture() { return motifFermeture; }
+    public void setMotifFermeture(String motifFermeture) { this.motifFermeture = motifFermeture; }
+
+    public String getMotifBlocage() { return motifBlocage; }
+    public void setMotifBlocage(String motifBlocage) { this.motifBlocage = motifBlocage; }
 }
