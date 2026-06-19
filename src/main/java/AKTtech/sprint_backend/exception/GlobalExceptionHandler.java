@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-@RestControllerAdvice
+@RestControllerAdvice(basePackages = "AKTtech.sprint_backend.controller")
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(RuntimeException.class)

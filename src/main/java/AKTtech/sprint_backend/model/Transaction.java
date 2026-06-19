@@ -51,10 +51,14 @@ public class Transaction {
 
     public StatutOperation getStatutOperation() { return statutOperation; }
     public void setStatutOperation(StatutOperation statutOperation) { this.statutOperation = statutOperation; }
-
+    @Enumerated(EnumType.STRING)
+    private CanalOperation canalOperation;
     public Compte getCompteSource() { return compteSource; }
     public void setCompteSource(Compte compteSource) { this.compteSource = compteSource; }
 
     public Compte getCompteDestination() { return compteDestination; }
     public void setCompteDestination(Compte compteDestination) { this.compteDestination = compteDestination; }
+
+    public CanalOperation getCanalOperation() { return canalOperation; }
+    public void setCanalOperation(CanalOperation canalOperation) { this.canalOperation = canalOperation; }
 }

@@ -5,6 +5,7 @@ import AKTtech.sprint_backend.model.StatutOperation;
 import AKTtech.sprint_backend.model.Transaction;
 import AKTtech.sprint_backend.repository.CompteRepository;
 import AKTtech.sprint_backend.repository.TransactionRepository;
+import AKTtech.sprint_backend.model.CanalOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +38,8 @@ public class TransactionService {
         transaction.setDescription(description);
         transaction.setCompteSource(compte);
         transaction.setStatutOperation(StatutOperation.VALIDEE);
+        transaction.setStatutOperation(StatutOperation.VALIDEE);
+        transaction.setCanalOperation(CanalOperation.API);
 
         return transactionRepository.save(transaction);
     }
@@ -62,6 +65,8 @@ public class TransactionService {
         transaction.setDescription(description);
         transaction.setCompteSource(compte);
         transaction.setStatutOperation(StatutOperation.VALIDEE);
+        transaction.setStatutOperation(StatutOperation.VALIDEE);
+        transaction.setCanalOperation(CanalOperation.API);
 
         return transactionRepository.save(transaction);
     }
@@ -92,6 +97,8 @@ public class TransactionService {
         transaction.setCompteSource(source);
         transaction.setCompteDestination(destination);
         transaction.setStatutOperation(StatutOperation.VALIDEE);
+        transaction.setStatutOperation(StatutOperation.VALIDEE);
+        transaction.setCanalOperation(CanalOperation.API);
 
         return transactionRepository.save(transaction);
     }
