@@ -18,7 +18,7 @@ public class CompteService {
         return compteRepository.findAll();
     }
 
-    public Optional<Compte> getCompteById(Long id) {
+    public Optional<Compte> getCompteById(String id) {
         return compteRepository.findById(id);
     }
 
@@ -31,7 +31,7 @@ public class CompteService {
         return compteRepository.save(compte);
     }
 
-    public Compte updateCompte(Long id, Compte compteModifie){
+    public Compte updateCompte(String id, Compte compteModifie){
         Compte compte = (Compte) compteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Compte non trouvé"));
         compte.setNumeroCompte(compteModifie.getNumeroCompte());
@@ -41,7 +41,7 @@ public class CompteService {
         return compteRepository.save(compte);
     }
 
-    public void deleteCompte(Long id) {
+    public void deleteCompte(String id) {
         compteRepository.deleteById(id);
     }
 }

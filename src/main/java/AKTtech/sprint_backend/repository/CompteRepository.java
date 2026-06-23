@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CompteRepository extends JpaRepository<Compte, Long> {
+public interface CompteRepository extends JpaRepository<Compte, String> {
 }

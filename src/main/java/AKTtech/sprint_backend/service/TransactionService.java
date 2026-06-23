@@ -24,7 +24,7 @@ public class TransactionService {
 
     // Dépôt
 
-    public Transaction depot(Long compteId, Double montant, String description) {
+    public Transaction depot(String compteId, Double montant, String description) {
         Compte compte = compteRepository.findById(compteId)
                 .orElseThrow(() -> new RuntimeException("Compte non trouvé"));
 
@@ -51,7 +51,7 @@ public class TransactionService {
 
 
     // Retrait
-    public Transaction retrait(Long compteId, Double montant, String description) {
+    public Transaction retrait(String compteId, Double montant, String description) {
         Compte compte = compteRepository.findById(compteId)
                 .orElseThrow(() -> new RuntimeException("Compte non trouvé"));
 
@@ -83,7 +83,7 @@ public class TransactionService {
 
     // Virement
 
-    public Transaction virement(Long compteSourceId, Long compteDestinationId, Double montant, String description) {
+    public Transaction virement(String compteSourceId, String compteDestinationId, Double montant, String description) {
         Compte source = compteRepository.findById(compteSourceId)
                 .orElseThrow(() -> new RuntimeException("Compte source non trouvé"));
         Compte destination = compteRepository.findById(compteDestinationId)

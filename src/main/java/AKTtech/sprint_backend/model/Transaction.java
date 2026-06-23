@@ -9,19 +9,22 @@ import java.time.LocalDateTime;
 public class Transaction {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
+    private String referenceOperation;
     private String type;
     private BigDecimal montant;
-    private LocalDateTime dateTransaction;
-    private String referenceOperation;
     private BigDecimal soldeAvant;
     private BigDecimal soldeApres;
+    private LocalDateTime dateTransaction;
     private String description;
 
     @Enumerated(EnumType.STRING)
     private StatutOperation statutOperation;
+
+    @Enumerated(EnumType.STRING)
+    private CanalOperation canalOperation;
 
     @ManyToOne
     @JoinColumn(name = "compte_source_id")
@@ -37,17 +40,17 @@ public class Transaction {
     }
 
     // Getters & Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+
+    public String getReferenceOperation() { return referenceOperation; }
+    public void setReferenceOperation(String referenceOperation) { this.referenceOperation = referenceOperation; }
 
     public String getType() { return type; }
     public void setType(String type) { this.type = type; }
 
     public BigDecimal getMontant() { return montant; }
     public void setMontant(BigDecimal montant) { this.montant = montant; }
-
-    public String getReferenceOperation() { return referenceOperation; }
-    public void setReferenceOperation(String referenceOperation) { this.referenceOperation = referenceOperation; }
 
     public BigDecimal getSoldeAvant() { return soldeAvant; }
     public void setSoldeAvant(BigDecimal soldeAvant) { this.soldeAvant = soldeAvant; }
@@ -63,14 +66,13 @@ public class Transaction {
 
     public StatutOperation getStatutOperation() { return statutOperation; }
     public void setStatutOperation(StatutOperation statutOperation) { this.statutOperation = statutOperation; }
-    @Enumerated(EnumType.STRING)
-    private CanalOperation canalOperation;
+
+    public CanalOperation getCanalOperation() { return canalOperation; }
+    public void setCanalOperation(CanalOperation canalOperation) { this.canalOperation = canalOperation; }
+
     public Compte getCompteSource() { return compteSource; }
     public void setCompteSource(Compte compteSource) { this.compteSource = compteSource; }
 
     public Compte getCompteDestination() { return compteDestination; }
     public void setCompteDestination(Compte compteDestination) { this.compteDestination = compteDestination; }
-
-    public CanalOperation getCanalOperation() { return canalOperation; }
-    public void setCanalOperation(CanalOperation canalOperation) { this.canalOperation = canalOperation; }
 }

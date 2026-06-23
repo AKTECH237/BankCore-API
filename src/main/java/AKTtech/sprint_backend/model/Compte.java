@@ -10,9 +10,8 @@ import java.time.LocalDateTime;
 public class Compte {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
     private String numeroCompte;
 
     @Enumerated(EnumType.STRING)
@@ -45,76 +44,12 @@ public class Compte {
         this.dateOuverture = LocalDateTime.now();
     }
 
-    public Client getClient() {
-        return client;
+    public String getId() {
+        return id;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public String getMotifBlocage() {
-        return motifBlocage;
-    }
-
-    public void setMotifBlocage(String motifBlocage) {
-        this.motifBlocage = motifBlocage;
-    }
-
-    public String getMotifFermeture() {
-        return motifFermeture;
-    }
-
-    public void setMotifFermeture(String motifFermeture) {
-        this.motifFermeture = motifFermeture;
-    }
-
-    public LocalDateTime getDateFermeture() {
-        return dateFermeture;
-    }
-
-    public void setDateFermeture(LocalDateTime dateFermeture) {
-        this.dateFermeture = dateFermeture;
-    }
-
-    public LocalDateTime getDateOuverture() {
-        return dateOuverture;
-    }
-
-    public void setDateOuverture(LocalDateTime dateOuverture) {
-        this.dateOuverture = dateOuverture;
-    }
-
-    public Devise getDevise() {
-        return devise;
-    }
-
-    public void setDevise(Devise devise) {
-        this.devise = devise;
-    }
-
-    public StatutCompte getStatutCompte() {
-        return statutCompte;
-    }
-
-    public void setStatutCompte(StatutCompte statutCompte) {
-        this.statutCompte = statutCompte;
-    }
-
-    public BigDecimal getSolde() {
-        return solde;
-    }
-
-    public void setSolde(BigDecimal solde) {
-        this.solde = solde;
-    }
-
-    public TypeCompte getTypeCompte() {
-        return typeCompte;
-    }
-
-    public void setTypeCompte(TypeCompte typeCompte) {
-        this.typeCompte = typeCompte;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNumeroCompte() {
@@ -125,11 +60,75 @@ public class Compte {
         this.numeroCompte = numeroCompte;
     }
 
-    public Long getId() {
-        return id;
+    public TypeCompte getTypeCompte() {
+        return typeCompte;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setTypeCompte(TypeCompte typeCompte) {
+        this.typeCompte = typeCompte;
+    }
+
+    public BigDecimal getSolde() {
+        return solde;
+    }
+
+    public void setSolde(BigDecimal solde) {
+        this.solde = solde;
+    }
+
+    public StatutCompte getStatutCompte() {
+        return statutCompte;
+    }
+
+    public void setStatutCompte(StatutCompte statutCompte) {
+        this.statutCompte = statutCompte;
+    }
+
+    public Devise getDevise() {
+        return devise;
+    }
+
+    public void setDevise(Devise devise) {
+        this.devise = devise;
+    }
+
+    public LocalDateTime getDateOuverture() {
+        return dateOuverture;
+    }
+
+    public void setDateOuverture(LocalDateTime dateOuverture) {
+        this.dateOuverture = dateOuverture;
+    }
+
+    public LocalDateTime getDateFermeture() {
+        return dateFermeture;
+    }
+
+    public void setDateFermeture(LocalDateTime dateFermeture) {
+        this.dateFermeture = dateFermeture;
+    }
+
+    public String getMotifFermeture() {
+        return motifFermeture;
+    }
+
+    public void setMotifFermeture(String motifFermeture) {
+        this.motifFermeture = motifFermeture;
+    }
+
+    public String getMotifBlocage() {
+        return motifBlocage;
+    }
+
+    public void setMotifBlocage(String motifBlocage) {
+        this.motifBlocage = motifBlocage;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 }
