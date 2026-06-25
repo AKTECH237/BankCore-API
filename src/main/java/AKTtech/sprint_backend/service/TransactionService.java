@@ -8,6 +8,7 @@ import AKTtech.sprint_backend.repository.TransactionRepository;
 import AKTtech.sprint_backend.model.CanalOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import AKTtech.sprint_backend.model.TypeOperation;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -35,7 +36,7 @@ public class TransactionService {
         compteRepository.save(compte);
 
         Transaction transaction = new Transaction();
-        transaction.setType("DEPOT");
+        transaction.setTypeOperation(TypeOperation.DEPOT);
         transaction.setMontant(montantBD);
         transaction.setSoldeAvant(soldeAvant); // ← NOUVEAU
         transaction.setSoldeApres(compte.getSolde()); // ← NOUVEAU
@@ -67,7 +68,7 @@ public class TransactionService {
         compteRepository.save(compte);
 
         Transaction transaction = new Transaction();
-        transaction.setType("RETRAIT");
+        transaction.setTypeOperation(TypeOperation.RETRAIT);
         transaction.setMontant(montantBD);
         transaction.setSoldeAvant(soldeAvant); // ← NOUVEAU
         transaction.setSoldeApres(compte.getSolde()); // ← NOUVEAU
@@ -104,7 +105,7 @@ public class TransactionService {
         compteRepository.save(destination);
 
         Transaction transaction = new Transaction();
-        transaction.setType("VIREMENT");
+        transaction.setTypeOperation(TypeOperation.VIREMENT);
         transaction.setMontant(montantBD);
         transaction.setSoldeAvant(soldeAvantSource); // ← NOUVEAU
         transaction.setSoldeApres(source.getSolde()); // ← NOUVEAU

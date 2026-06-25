@@ -13,7 +13,10 @@ public class Transaction {
     private String id;
 
     private String referenceOperation;
-    private String type;
+
+    @Enumerated(EnumType.STRING)
+    private TypeOperation typeOperation;
+
     private BigDecimal montant;
     private BigDecimal soldeAvant;
     private BigDecimal soldeApres;
@@ -40,39 +43,100 @@ public class Transaction {
     }
 
     // Getters & Setters
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
 
-    public String getReferenceOperation() { return referenceOperation; }
-    public void setReferenceOperation(String referenceOperation) { this.referenceOperation = referenceOperation; }
+    public String getId() {
+        return id;
+    }
 
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-    public BigDecimal getMontant() { return montant; }
-    public void setMontant(BigDecimal montant) { this.montant = montant; }
+    public String getReferenceOperation() {
+        return referenceOperation;
+    }
 
-    public BigDecimal getSoldeAvant() { return soldeAvant; }
-    public void setSoldeAvant(BigDecimal soldeAvant) { this.soldeAvant = soldeAvant; }
+    public void setReferenceOperation(String referenceOperation) {
+        this.referenceOperation = referenceOperation;
+    }
 
-    public BigDecimal getSoldeApres() { return soldeApres; }
-    public void setSoldeApres(BigDecimal soldeApres) { this.soldeApres = soldeApres; }
+    public TypeOperation getTypeOperation() {
+        return typeOperation;
+    }
 
-    public LocalDateTime getDateTransaction() { return dateTransaction; }
-    public void setDateTransaction(LocalDateTime dateTransaction) { this.dateTransaction = dateTransaction; }
+    public void setTypeOperation(TypeOperation typeOperation) {
+        this.typeOperation = typeOperation;
+    }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public BigDecimal getMontant() {
+        return montant;
+    }
 
-    public StatutOperation getStatutOperation() { return statutOperation; }
-    public void setStatutOperation(StatutOperation statutOperation) { this.statutOperation = statutOperation; }
+    public void setMontant(BigDecimal montant) {
+        this.montant = montant;
+    }
 
-    public CanalOperation getCanalOperation() { return canalOperation; }
-    public void setCanalOperation(CanalOperation canalOperation) { this.canalOperation = canalOperation; }
+    public BigDecimal getSoldeAvant() {
+        return soldeAvant;
+    }
 
-    public Compte getCompteSource() { return compteSource; }
-    public void setCompteSource(Compte compteSource) { this.compteSource = compteSource; }
+    public void setSoldeAvant(BigDecimal soldeAvant) {
+        this.soldeAvant = soldeAvant;
+    }
 
-    public Compte getCompteDestination() { return compteDestination; }
-    public void setCompteDestination(Compte compteDestination) { this.compteDestination = compteDestination; }
+    public BigDecimal getSoldeApres() {
+        return soldeApres;
+    }
+
+    public void setSoldeApres(BigDecimal soldeApres) {
+        this.soldeApres = soldeApres;
+    }
+
+    public LocalDateTime getDateTransaction() {
+        return dateTransaction;
+    }
+
+    public void setDateTransaction(LocalDateTime dateTransaction) {
+        this.dateTransaction = dateTransaction;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public StatutOperation getStatutOperation() {
+        return statutOperation;
+    }
+
+    public void setStatutOperation(StatutOperation statutOperation) {
+        this.statutOperation = statutOperation;
+    }
+
+    public CanalOperation getCanalOperation() {
+        return canalOperation;
+    }
+
+    public void setCanalOperation(CanalOperation canalOperation) {
+        this.canalOperation = canalOperation;
+    }
+
+    public Compte getCompteSource() {
+        return compteSource;
+    }
+
+    public void setCompteSource(Compte compteSource) {
+        this.compteSource = compteSource;
+    }
+
+    public Compte getCompteDestination() {
+        return compteDestination;
+    }
+
+    public void setCompteDestination(Compte compteDestination) {
+        this.compteDestination = compteDestination;
+    }
 }
