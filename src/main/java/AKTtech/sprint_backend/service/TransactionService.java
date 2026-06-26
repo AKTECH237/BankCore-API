@@ -30,16 +30,13 @@ public class TransactionService {
                 .orElseThrow(() -> new RuntimeException("Compte non trouvé"));
 
         BigDecimal montantBD = BigDecimal.valueOf(montant);
-        BigDecimal soldeAvant = compte.getSolde(); // ← NOUVEAU : on sauvegarde avant
-
-        compte.setSolde(compte.getSolde().add(montantBD));
-        compteRepository.save(compte);
+        BigDecimal soldeAvant = compte.getSolde();
 
         Transaction transaction = new Transaction();
         transaction.setTypeOperation(TypeOperation.DEPOT);
         transaction.setMontant(montantBD);
-        transaction.setSoldeAvant(soldeAvant); // ← NOUVEAU
-        transaction.setSoldeApres(compte.getSolde()); // ← NOUVEAU
+        transaction.setSoldeAvant(soldeAvant);
+        transaction.setSoldeApres(soldeAvant.add(montantBD));
         transaction.setDateTransaction(LocalDateTime.now());
         transaction.setDescription(description);
         transaction.setCompteSource(compte);
@@ -62,16 +59,13 @@ public class TransactionService {
             throw new RuntimeException("Solde insuffisant");
         }
 
-        BigDecimal soldeAvant = compte.getSolde(); // ← NOUVEAU
-
-        compte.setSolde(compte.getSolde().subtract(montantBD));
-        compteRepository.save(compte);
+        BigDecimal soldeAvant = compte.getSolde();
 
         Transaction transaction = new Transaction();
         transaction.setTypeOperation(TypeOperation.RETRAIT);
         transaction.setMontant(montantBD);
-        transaction.setSoldeAvant(soldeAvant); // ← NOUVEAU
-        transaction.setSoldeApres(compte.getSolde()); // ← NOUVEAU
+        transaction.setSoldeAvant(soldeAvant);
+        transaction.setSoldeApres(soldeAvant.subtract(montantBD));
         transaction.setDateTransaction(LocalDateTime.now());
         transaction.setDescription(description);
         transaction.setCompteSource(compte);
@@ -81,7 +75,6 @@ public class TransactionService {
 
         return transactionRepository.save(transaction);
     }
-
     // Virement
 
     public Transaction virement(String compteSourceId, String compteDestinationId, Double montant, String description) {
@@ -96,19 +89,13 @@ public class TransactionService {
             throw new RuntimeException("Solde insuffisant");
         }
 
-        BigDecimal soldeAvantSource = source.getSolde(); // ← NOUVEAU
-        BigDecimal soldeAvantDestination = destination.getSolde(); // ← NOUVEAU
-
-        source.setSolde(source.getSolde().subtract(montantBD));
-        destination.setSolde(destination.getSolde().add(montantBD));
-        compteRepository.save(source);
-        compteRepository.save(destination);
+        BigDecimal soldeAvant = source.getSolde();
 
         Transaction transaction = new Transaction();
         transaction.setTypeOperation(TypeOperation.VIREMENT);
         transaction.setMontant(montantBD);
-        transaction.setSoldeAvant(soldeAvantSource); // ← NOUVEAU
-        transaction.setSoldeApres(source.getSolde()); // ← NOUVEAU
+        transaction.setSoldeAvant(soldeAvant);
+        transaction.setSoldeApres(soldeAvant.subtract(montantBD));
         transaction.setDateTransaction(LocalDateTime.now());
         transaction.setDescription(description);
         transaction.setCompteSource(source);
