@@ -24,6 +24,9 @@ public class Transaction {
     private BigDecimal soldeApres;
     private LocalDateTime dateTransaction;
     private String description;
+    private String endToEndId;
+    private LocalDateTime dateExecution;
+    private LocalDateTime dateValidation;
 
     @Enumerated(EnumType.STRING)
     private StatutOperation statutOperation;
@@ -70,11 +73,21 @@ public class Transaction {
         this.typeOperation = typeOperation;
     }
 
-    public BigDecimal getFraisOperation() { return fraisOperation; }
-    public void setFraisOperation(BigDecimal fraisOperation) { this.fraisOperation = fraisOperation; }
+    public BigDecimal getFraisOperation() {
+        return fraisOperation;
+    }
 
-    public String getMotif() { return motif; }
-    public void setMotif(String motif) { this.motif = motif; }
+    public void setFraisOperation(BigDecimal fraisOperation) {
+        this.fraisOperation = fraisOperation;
+    }
+
+    public String getMotif() {
+        return motif;
+    }
+
+    public void setMotif(String motif) {
+        this.motif = motif;
+    }
 
     public BigDecimal getMontant() {
         return montant;
@@ -114,6 +127,30 @@ public class Transaction {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getEndToEndId() {
+        return endToEndId;
+    }
+
+    public void setEndToEndId(String endToEndId) {
+        this.endToEndId = endToEndId;
+    }
+
+    public LocalDateTime getDateExecution() {
+        return dateExecution;
+    }
+
+    public void setDateExecution(LocalDateTime dateExecution) {
+        this.dateExecution = dateExecution;
+    }
+
+    public LocalDateTime getDateValidation() {
+        return dateValidation;
+    }
+
+    public void setDateValidation(LocalDateTime dateValidation) {
+        this.dateValidation = dateValidation;
     }
 
     public StatutOperation getStatutOperation() {

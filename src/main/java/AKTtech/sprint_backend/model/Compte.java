@@ -19,6 +19,9 @@ public class Compte {
     private java.math.BigDecimal soldeComptable;
     private java.math.BigDecimal plafondRetraitJournalier;
     private java.math.BigDecimal plafondVirementJournalier;
+    private BigDecimal decouvertAutorise;
+    private BigDecimal tauxInteret;
+    private BigDecimal fraisTenueCompte;
     private LocalDateTime dateDerniereOperation;
     private LocalDateTime dateDerniereModification;
 
@@ -51,6 +54,7 @@ public class Compte {
         this.devise = Devise.XAF;
         this.dateOuverture = LocalDateTime.now();
     }
+    // getter et setter
 
     public String getId() {
         return id;
@@ -106,6 +110,30 @@ public class Compte {
 
     public void setPlafondVirementJournalier(BigDecimal plafondVirementJournalier) {
         this.plafondVirementJournalier = plafondVirementJournalier;
+    }
+
+    public BigDecimal getDecouvertAutorise() {
+        return decouvertAutorise;
+    }
+
+    public void setDecouvertAutorise(BigDecimal decouvertAutorise) {
+        this.decouvertAutorise = decouvertAutorise;
+    }
+
+    public BigDecimal getTauxInteret() {
+        return tauxInteret;
+    }
+
+    public void setTauxInteret(BigDecimal tauxInteret) {
+        this.tauxInteret = tauxInteret;
+    }
+
+    public BigDecimal getFraisTenueCompte() {
+        return fraisTenueCompte;
+    }
+
+    public void setFraisTenueCompte(BigDecimal fraisTenueCompte) {
+        this.fraisTenueCompte = fraisTenueCompte;
     }
 
     public LocalDateTime getDateDerniereOperation() {
