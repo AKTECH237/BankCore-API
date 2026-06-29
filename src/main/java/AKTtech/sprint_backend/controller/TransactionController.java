@@ -28,7 +28,7 @@ public class TransactionController {
     // POST dépôt
     @PostMapping("/depot")
     public Transaction depot(@RequestBody Map<String, Object> body) {
-        Long compteId = Long.valueOf(body.get("compteId").toString());
+        String compteId = body.get("compteId").toString();
         Double montant = Double.valueOf(body.get("montant").toString());
         String description = body.get("description").toString();
         return transactionService.depot(compteId, montant, description);
@@ -37,7 +37,7 @@ public class TransactionController {
     // POST retrait
     @PostMapping("/retrait")
     public Transaction retrait(@RequestBody Map<String, Object> body) {
-        Long compteId = Long.valueOf(body.get("compteId").toString());
+        String compteId = body.get("compteId").toString();
         Double montant = Double.valueOf(body.get("montant").toString());
         String description = body.get("description").toString();
         return transactionService.retrait(compteId, montant, description);
@@ -46,8 +46,8 @@ public class TransactionController {
     // POST virement
     @PostMapping("/virement")
     public Transaction virement(@RequestBody Map<String, Object> body) {
-        Long compteSourceId = Long.valueOf(body.get("compteSourceId").toString());
-        Long compteDestinationId = Long.valueOf(body.get("compteDestinationId").toString());
+        String compteSourceId = body.get("compteSourceId").toString();
+        String compteDestinationId = body.get("compteDestinationId").toString();
         Double montant = Double.valueOf(body.get("montant").toString());
         String description = body.get("description").toString();
         return transactionService.virement(compteSourceId, compteDestinationId, montant, description);
@@ -55,7 +55,7 @@ public class TransactionController {
 
     // DELETE transaction
     @DeleteMapping("/{id}")
-    public void deleteTransaction(@PathVariable Long id) {
+    public void deleteTransaction(@PathVariable String id) {
         transactionRepository.deleteById(id);
     }
 }

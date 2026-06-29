@@ -25,7 +25,7 @@ public class ClientController {
 
     // GET un client par ID
     @GetMapping("/{id}")
-    public Optional<Client> getClientById(@PathVariable Long id) {
+    public Optional<Client> getClientById(@PathVariable String id) {
         return clientService.getClientById(id);
     }
 
@@ -37,13 +37,13 @@ public class ClientController {
 
     // PUT modifier un client
     @PutMapping("/{id}")
-    public Client updateClient(@PathVariable Long id,@Valid  @RequestBody Client client) {
+    public Client updateClient(@PathVariable String id,@Valid  @RequestBody Client client) {
         return clientService.updateClient(id, client);
     }
 
     // DELETE supprimer un client
     @DeleteMapping("/{id}")
-    public void deleteClient(@PathVariable Long id) {
+    public void deleteClient(@PathVariable String id) {
         clientService.deleteClient(id);
     }
 }

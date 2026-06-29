@@ -24,7 +24,7 @@ public class CompteController {
 
     // GET un compte par ID
     @GetMapping("/{id}")
-    public Optional<Object> getCompteById(@PathVariable Long id){
+    public Optional<Object> getCompteById(@PathVariable String id){
 
         return Optional.ofNullable(compteService.getCompteById(id));
     }
@@ -37,13 +37,13 @@ public class CompteController {
 
     //PUT modifier un compte
     @PutMapping("/{id}")
-    public Compte updateCompte(@PathVariable Long id, @RequestBody Compte compte){
+    public Compte updateCompte(@PathVariable String id, @RequestBody Compte compte){
         return compteService.updateCompte(id, compte);
     }
 
     //DELETE suprimer un compte
     @DeleteMapping("/{id}")
-    public void deleteCompte(@PathVariable Long id){
+    public void deleteCompte(@PathVariable String id){
        compteService.deleteCompte(id);
     }
 }

@@ -18,15 +18,20 @@ public class CompteService {
         return compteRepository.findAll();
     }
 
-    public Optional<Compte> getCompteById(Long id) {
+    public Optional<Compte> getCompteById(String id) {
         return compteRepository.findById(id);
     }
 
-    public Compte createCompte(Compte compte){
+    public Compte createCompte(Compte compte) {
+        // Algorithme de numérotation automatique
+        String annee = String.valueOf(java.time.LocalDate.now().getYear());
+        long nombreComptes = compteRepository.count();
+        String numero = String.format("CMR-%s-%06d", annee, nombreComptes + 1);
+        compte.setNumeroCompte(numero);
         return compteRepository.save(compte);
     }
 
-    public Compte updateCompte(Long id, Compte compteModifie){
+    public Compte updateCompte(String id, Compte compteModifie){
         Compte compte = (Compte) compteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Compte non trouvé"));
         compte.setNumeroCompte(compteModifie.getNumeroCompte());
@@ -36,7 +41,7 @@ public class CompteService {
         return compteRepository.save(compte);
     }
 
-    public void deleteCompte(Long id) {
+    public void deleteCompte(String id) {
         compteRepository.deleteById(id);
     }
 }
